@@ -54,12 +54,12 @@ jobs:
         run: mvn -f pom.xml clean install -DskipTests=true 
       - name: Release (Package JAR)
         run: mvn -f pom.xml clean install -P Deployment -U -DskipTests=true --projects blazegraph-jar,bigdata-jar
-      - name: Create Github Release
-        uses: elgohr/Github-Release-Action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          args: Release ${{ env.NEW_VERSION }}
+          files: repository/com/blazegraph/blazegraph-jar/*/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
           
           
