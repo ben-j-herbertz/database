@@ -32,6 +32,6 @@ jobs:
       - uses: actions/setup-node@v1
       - uses: test-room-7/action-update-file@v1
         with:
-          file-path: **/*.pom
+          file-path: "**/*.pom"
           commit-msg: Release Version Updates for ${{ env.NEW_VERSION }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
