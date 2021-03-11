@@ -58,6 +58,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: BLAZEGRAPH_RELEASE_${{ env.NEW_BRANCH_VERSION }}_RC
           files: repository/com/blazegraph/blazegraph-jar/*/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
