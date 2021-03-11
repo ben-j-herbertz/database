@@ -25,7 +25,7 @@ jobs:
       - name: Set Version
         run: |
           echo "NEW_VERSION=2.1.7" >> $GITHUB_ENV
-          echo "NEW_BRANCH_VERSION=2_1_7"
+          echo "NEW_BRANCH_VERSION=2_1_7" >> $GITHUB_ENV
       - name: Update Version (updateVersions.sh)
         run: bash -x ./scripts/updateVersions.sh ${{ env.NEW_VERSION }}
       - name: Update Version (version.properties)
@@ -34,5 +34,5 @@ jobs:
         with:
           file-path: "**/pom.xml"
           branch: BLAZEGRAPH_RELEASE_${{ env.NEW_BRANCH_VERSION }}_RC
-          commit-msg: Release Version Updates for ${{ env.NEW_VERSION }}
+          commit-msg: Release Version Updates for ${{ env.NEW_BRANCH_VERSION }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
