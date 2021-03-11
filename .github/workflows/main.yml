@@ -37,6 +37,7 @@ jobs:
           commit-msg: Release Version Updates for ${{ env.NEW_BRANCH_VERSION }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
   release:
+    needs: update_version
     runs-on: ubuntu-latest
     steps:
       - name: Set Version
