@@ -36,3 +36,30 @@ jobs:
           branch: BLAZEGRAPH_RELEASE_${{ env.NEW_BRANCH_VERSION }}_RC
           commit-msg: Release Version Updates for ${{ env.NEW_BRANCH_VERSION }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Version
+        run: |
+          echo "NEW_VERSION=2.1.7" >> $GITHUB_ENV
+          echo "NEW_BRANCH_VERSION=2_1_7" >> $GITHUB_ENV
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Release (Parent POM)
+        run: mvn -f pom.xml clean install -DskipTests=true -N
+      - name: Release (Build modules)
+        run: mvn -f pom.xml clean install -DskipTests=true 
+      - name: Release (Package JAR)
+        run: mvn -f pom.xml clean install -P Deployment -U -DskipTests=true --projects blazegraph-jar,bigdata-jar
+      - name: Create Github Release
+        uses: elgohr/Github-Release-Action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          args: Release ${{ env.NEW_VERSION }}
+          
+          
+          
