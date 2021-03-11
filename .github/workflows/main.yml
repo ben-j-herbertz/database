@@ -28,7 +28,7 @@ jobs:
       - name: Update Version (updateVersions.sh)
         run: bash -x ./scripts/updateVersions.sh ${{ env.NEW_VERSION }}
       - name: Update Version (version.properties)
-        run: sed -i 's/CURRENT_VERSION=.*/CURRENT_VERSION=${{ env.NEW_VERSION }}/' script/version.properties
+        run: sed -i 's/CURRENT_VERSION=.*/CURRENT_VERSION=${{ env.NEW_VERSION }}/' scripts/version.properties
       - uses: test-room-7/action-update-file@v1
         with:
           file-path: "*.pom"
